@@ -9,8 +9,9 @@ class Watermark_Processor
 public:
 	Watermark_Processor();
 	~Watermark_Processor();
-	Watermark_Processor(std::string path, std::string new_file);
-	cv::Mat Watermark_start();
+	Watermark_Processor(std::string path, std::string new_file, bool ischecked);
+	cv::Mat Watermark_start(bool);
+
 private:
 	cv::Mat _image1;
 	cv::Mat _hideimage1;

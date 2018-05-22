@@ -23,12 +23,26 @@ namespace WatermarkApp
     {
         private String imagePath;
         private String imagePathW;
+        private Boolean isChecked;
         private readonly BackgroundWorker _worker = new BackgroundWorker();
+
+        public Boolean IsChecked
+        {
+            get
+            {
+                return isChecked;
+            }
+
+            set
+            {
+                isChecked = value;
+            }
+        }
 
         public MainWindow()
         {
             InitializeComponent();
-
+         
             _worker.DoWork += _worker_DoWork;
             _worker.RunWorkerCompleted += _worker_RunWorkerCompleted;
         }
@@ -58,13 +72,20 @@ namespace WatermarkApp
 
         private void _worker_DoWork(object sender, DoWorkEventArgs e)
         {
-            using (var detector = new dv.EngineWrapper())
+            try
             {
-                BitmapSource bmp = detector.Process(imagePath, imagePathW);
-                bmp.Freeze();
-                e.Result = bmp;
+                using (var detector = new dv.EngineWrapper())
+                {
+                    BitmapSource bmp = detector.Process(imagePath, imagePathW, isChecked);
+                    bmp.Freeze();
+                    e.Result = bmp;
+                }
+                System.Threading.Thread.Sleep(1000);
             }
-            System.Threading.Thread.Sleep(1000);
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         #endregion
@@ -128,6 +149,16 @@ namespace WatermarkApp
                 MasterImageW.Source = new BitmapImage(new Uri(filename));
                 MasterZoomBorderW.Reset();
             }
+        }
+
+        private void chkVisible_Checked(object sender, RoutedEventArgs e)
+        {
+           
+        }
+
+        private void chkVisible_Click(object sender, RoutedEventArgs e)
+        {
+            isChecked = (Boolean)chkVisible.IsChecked;
         }
     }
 }

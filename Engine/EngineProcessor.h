@@ -14,7 +14,7 @@ namespace dv
 		EngineProcessor();
 		~EngineProcessor();
 
-		cv::Mat Process(const std::string& imagePath, const std::string& imagePathW);
+		cv::Mat Process(const std::string& imagePath, const std::string& imagePathW, bool ischecked);
 		
 		//cv::Mat Process(std::string file);
 	};

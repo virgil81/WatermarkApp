@@ -19,11 +19,20 @@ dv::EngineWrapper::!EngineWrapper()
 	delete _engineprocessor;
 }
 
-BitmapSource ^ dv::EngineWrapper::Process(System::String ^ imagePath, System::String ^ imagePathW)
+BitmapSource ^ dv::EngineWrapper::Process(System::String ^ imagePath, System::String ^ imagePathW, Boolean ischeked)
 {
-	cv::Mat result;
-	result = _engineprocessor->Process(MarshalString(imagePath), MarshalString(imagePathW));
-	return ToBitmapSource(result);
+	try
+	{
+		cv::Mat result;
+		result = _engineprocessor->Process(MarshalString(imagePath), MarshalString(imagePathW), ischeked);
+		return ToBitmapSource(result);
+	}
+	catch (const std::exception& ex)
+	{
+		
+		return nullptr;
+	}
+	
 }
 
 BitmapSource ^ dv::EngineWrapper::ToBitmapSource(cv::Mat image)

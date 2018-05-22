@@ -30,17 +30,25 @@ namespace dv {
 		EngineWrapper();
 		~EngineWrapper();
 		!EngineWrapper();
-		BitmapSource^ Process(System::String^ imagePath, System::String^ imagePathW);
+		BitmapSource^ Process(System::String^ imagePath, System::String^ imagePathW, Boolean ischecked);
 	private:
 		static BitmapSource^ ToBitmapSource(cv::Mat image);
 
 		std::string MarshalString(System::String^ s) {
-			using namespace System::Runtime::InteropServices;
-			const char* chars =
-				(const char*)(Marshal::StringToHGlobalAnsi(s)).ToPointer();
-			std::string os = chars;
-			Marshal::FreeHGlobal(System::IntPtr((void*)chars));
-			return os;
+			try
+			{
+				using namespace System::Runtime::InteropServices;
+				const char* chars =
+					(const char*)(Marshal::StringToHGlobalAnsi(s)).ToPointer();
+				std::string os = chars;
+				Marshal::FreeHGlobal(System::IntPtr((void*)chars));
+				return os;
+			}
+			catch (const std::exception& ex)
+			{
+
+				return nullptr;
+			}
 		};
 
 	private:

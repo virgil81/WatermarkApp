@@ -33,8 +33,22 @@
                     </Grid>
 
                     <Grid HorizontalAlignment="Stretch" Margin="2" VerticalAlignment="Stretch" Grid.Column="3">
-                        <Button x:Name="ButtonDetect" Content="PROCESS " VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Margin="4" 
-                        VerticalAlignment="Center" MinHeight="60" Click="buttonDetect_Click"  Background="#FF20AAAA" FontWeight="Bold" FontSize="26" Foreground="White" Height="70"/>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="8*"/>
+                                <ColumnDefinition Width="3*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid Grid.Column="1">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="5*" MinHeight="20"/>
+                                    <RowDefinition Height="5*"/>
+                                </Grid.RowDefinitions>
+                                <Label Grid.Row="0" Content="Visible" FontSize="8" Margin="5"/>
+                                <CheckBox Name="chkVisible"  MinWidth="30" Grid.Row="1" Margin="15,0,1,0" IsChecked="{Binding  Path=IsChecked}" Height="32" VerticalAlignment="Bottom" Click="chkVisible_Click" />
+                            </Grid>
+                            <Button x:Name="ButtonDetect" Grid.Column="0" Content="PROCESS " VerticalContentAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Stretch" Margin="4" 
+                        VerticalAlignment="Center" MinHeight="60" Click="buttonDetect_Click"  Background="#FF20AAAA" FontWeight="Bold" FontSize="20" Foreground="White" Height="70"/>
+                        </Grid>
                     </Grid>
 
                 </Grid>
