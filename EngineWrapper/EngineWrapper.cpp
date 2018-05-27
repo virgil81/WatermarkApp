@@ -21,18 +21,18 @@ dv::EngineWrapper::!EngineWrapper()
 
 BitmapSource ^ dv::EngineWrapper::Process(System::String ^ imagePath, System::String ^ imagePathW, Boolean ischeked)
 {
-	try
-	{
-		cv::Mat result;
-		result = _engineprocessor->Process(MarshalString(imagePath), MarshalString(imagePathW), ischeked);
-		return ToBitmapSource(result);
-	}
-	catch (const std::exception& ex)
-	{
-		
-		return nullptr;
-	}
-	
+
+	if (imagePath == nullptr)
+		throw gcnew Exception("Invalid string for master image path");
+	if (imagePathW == nullptr)
+		throw gcnew Exception("Invalid string for wztermark image path");
+
+	cv::Mat result;
+	result = _engineprocessor->Process(MarshalString(imagePath), MarshalString(imagePathW), ischeked);
+	return ToBitmapSource(result);
+
+
+
 }
 
 BitmapSource ^ dv::EngineWrapper::ToBitmapSource(cv::Mat image)

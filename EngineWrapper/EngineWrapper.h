@@ -35,20 +35,15 @@ namespace dv {
 		static BitmapSource^ ToBitmapSource(cv::Mat image);
 
 		std::string MarshalString(System::String^ s) {
-			try
-			{
-				using namespace System::Runtime::InteropServices;
-				const char* chars =
-					(const char*)(Marshal::StringToHGlobalAnsi(s)).ToPointer();
-				std::string os = chars;
-				Marshal::FreeHGlobal(System::IntPtr((void*)chars));
-				return os;
-			}
-			catch (const std::exception& ex)
-			{
+			if (s == nullptr)
+				throw gcnew Exception("Invalid string for path");
+			using namespace System::Runtime::InteropServices;
+			const char* chars =
+				(const char*)(Marshal::StringToHGlobalAnsi(s)).ToPointer();
+			std::string os = chars;
+			Marshal::FreeHGlobal(System::IntPtr((void*)chars));
+			return os;
 
-				return nullptr;
-			}
 		};
 
 	private:

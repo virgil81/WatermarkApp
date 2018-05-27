@@ -63,7 +63,7 @@ cv::Mat Watermark_Processor::Watermark_start(bool ischecked) {
 	{
 		
 		cv::Mat hiddenimage = _hideimage1.clone();
-		int _nobits = 4;
+		int _nobits = 6;
 
 		for (size_t i = 0; i < _image1.cols; i++)
 		{
